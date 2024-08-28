@@ -21,20 +21,22 @@ function App() {
       className="grid grid-cols-12 grid-rows-[auto,1fr] gap-y-2 min-h-svh w-full
      bg-white-b1 dark:bg-black-b1 text-white-t1 dark:text-black-t1">
       <NavBar />
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/budget" element={<Budget />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/transactions" element={<Transactions />} />
-        <Route path="/alerts" element={<Alerts />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/" element={<Navigate to="/home" />} />
-      </Routes>
+      <main className="col-span-12">
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/budget" element={<Budget />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+        </Routes>
+      </main>
     </div>
   );
 }

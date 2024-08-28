@@ -56,7 +56,7 @@ function NavBar() {
               key={idx}
               to={`/${page.name.toLowerCase()}`}
               onClick={() => setShowNav(false)}
-              className="relative group flex items-center gap-2"
+              className="relative group flex items-center gap-2 font-semibold cursor-pointer"
               aria-label={page.name}>
               <page.icon size={20} className="block md:hidden" />
               <span
