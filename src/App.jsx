@@ -1,7 +1,6 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 /* COMPONENTS */
-import HeaderBar from "./Components/HeaderBar";
 import NavBar from "./Components/NavBar";
 /* PAGES */
 import Home from "./Pages/Home";
@@ -19,12 +18,11 @@ import Dashboard from "./Pages/Dashboard";
 function App() {
   return (
     <div
-      className="grid grid-cols-12 grid-rows-[auto,1fr] gap-x-2 min-h-svh w-full
+      className="grid grid-cols-12 grid-rows-[auto,1fr] gap-y-2 min-h-svh w-full
      bg-white-b1 dark:bg-black-b1 text-white-t1 dark:text-black-t1">
-      <HeaderBar />
       <NavBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/budget" element={<Budget />} />
@@ -35,6 +33,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/alerts" element={<Alerts />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </div>
   );

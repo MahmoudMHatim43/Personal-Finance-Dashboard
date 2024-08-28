@@ -3,6 +3,11 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontSize: {
+        "logo-name": "clamp(2rem, 2.5vw + 1rem, 2.5rem)",
+        "body-text": "clamp(0.875rem, 1vw + 0.75rem, 1rem)",
+        "small-text": "clamp(0.75rem, 1vw + 0.5rem, 0.875rem)",
+      },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
         lato: ["Lato", "sans-serif"],
@@ -23,3 +28,4 @@ export default {
   darkMode: "media", // Automatically switch based on the user's system preference
   plugins: [],
 };
+// clamp(minimum, preferred, maximum)
