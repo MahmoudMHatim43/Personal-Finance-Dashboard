@@ -27,7 +27,6 @@ function NavBar() {
   const activePage = useLocation().pathname;
   useEffect(() => {
     setIsActive(activePage.slice(1));
-    console.log(activePage);
   }, [activePage]);
   return (
     <header className="col-span-12 bg-white-b2 dark:bg-black-b2">
@@ -36,6 +35,7 @@ function NavBar() {
           size={30}
           onClick={() => setShowNav(!showNav)}
           className="block md:hidden cursor-pointer"
+          aria-label="open menu"
         />
         <h1 className="p-1 text-logo-name text-blue-400 font-bree font-bold tracking-wider">
           iFinance
@@ -49,28 +49,35 @@ function NavBar() {
             size={30}
             onClick={() => setShowNav(!showNav)}
             className="block md:hidden cursor-pointer"
+            aria-label="close menu"
           />
-          {pages.map((page) => (
+          {pages.map((page, idx) => (
             <NavLink
+              key={idx}
               to={`/${page.name.toLowerCase()}`}
               onClick={() => setShowNav(false)}
-              className="flex items-center gap-2">
+              className="relative group flex items-center gap-2"
+              aria-label={page.name}>
               <page.icon size={20} className="block md:hidden" />
               <span
-                className={
-                  page?.name.toLowerCase() === isActive &&
-                  "text-orange-500 duration-500"
-                }>
+                className={`
+                  ${
+                    page?.name.toLowerCase() === isActive &&
+                    "text-orange-500 duration-500"
+                  }`}>
                 {page.name}
               </span>
+              <span className="absolute -bottom-1 left-0 md:left-1/2 md:-translate-x-1/2 w-0 h-[1px] duration-500 group-hover:w-3/4 bg-orange-500 "></span>
             </NavLink>
           ))}
         </motion.ul>
         <div className="flex items-center justify-between h-full p-1">
           <div className="flex items-center gap-4">
-            <MdSettings size={20} />
-            <FaBell size={20} />
-            <div className="bg-gray-500 w-10 h-10 rounded-full">
+            <MdSettings size={20} aria-label="settings" />
+            <FaBell size={20} aria-label="alerts" />
+            <div
+              className="bg-gray-500 w-10 h-10 rounded-full"
+              aria-label="user profile">
               {/* Avatar */}
             </div>
           </div>
