@@ -4,7 +4,7 @@ function OperationView({ operation }) {
   const { icon: Icon, color, title } = operation;
 
   return (
-    <div className="relative z-50 col-span-1 flex flex-col h-[12.5svh] p-4 font-lato bg- dark:bg-black-b2 text-center sm:text-start rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden">
+    <div className="relative z-20 col-span-1 flex flex-col h-[12.5svh] p-4 font-lato bg- dark:bg-black-b2 text-center sm:text-start rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden">
       <Icon
         size={100}
         color={color}

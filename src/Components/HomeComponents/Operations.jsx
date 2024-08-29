@@ -1,4 +1,4 @@
-import OperationView from "../HomeComponents/OperationView.jsx";
+import OperationView from "../HomeComponents/OperationView";
 import { MdAddCircle } from "react-icons/md";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { TbTransferVertical } from "react-icons/tb";

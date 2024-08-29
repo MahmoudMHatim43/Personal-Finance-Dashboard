@@ -1,4 +1,4 @@
-import ViewSection from "../HomeComponents/ViewSection.jsx";
+import ViewSection from "../HomeComponents/ViewSection";
 
 function Overview() {
   const sections = [

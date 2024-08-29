@@ -13,6 +13,7 @@ import { MdSettings } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
+
 function NavBar() {
   const [isActive, setIsActive] = useState("");
   const [showNav, setShowNav] = useState(false);
