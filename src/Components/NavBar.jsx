@@ -13,14 +13,6 @@ import { MdSettings } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { NavLink } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
-const pages = [
-  { name: "Home", icon: FaHome },
-  { name: "Budget", icon: FaWallet },
-  { name: "Reports", icon: FaChartBar },
-  { name: "Transactions", icon: FaExchangeAlt },
-  { name: "Alerts", icon: FaBell },
-  { name: "Help", icon: FaQuestionCircle },
-];
 function NavBar() {
   const [isActive, setIsActive] = useState("");
   const [showNav, setShowNav] = useState(false);
@@ -28,8 +20,16 @@ function NavBar() {
   useEffect(() => {
     setIsActive(activePage.slice(1));
   }, [activePage]);
+  const pages = [
+    { name: "Home", icon: FaHome },
+    { name: "Budget", icon: FaWallet },
+    { name: "Reports", icon: FaChartBar },
+    { name: "Transactions", icon: FaExchangeAlt },
+    { name: "Alerts", icon: FaBell },
+    { name: "Help", icon: FaQuestionCircle },
+  ];
   return (
-    <header className="col-span-12 bg-white-b2 dark:bg-black-b2">
+    <header className="col-span-12 bg-white-b2 dark:bg-black-b2 shadow-md">
       <nav className="flex items-center justify-between w-[95%] mx-auto">
         <TfiMenuAlt
           size={30}

@@ -18,7 +18,7 @@ import Dashboard from "./Pages/Dashboard";
 function App() {
   return (
     <div
-      className="grid grid-cols-12 grid-rows-[auto,1fr] gap-y-2 min-h-svh w-full
+      className="grid grid-cols-12 grid-rows-[auto,1fr] gap-y-5 min-h-svh w-full
      bg-white-b1 dark:bg-black-b1 text-white-t1 dark:text-black-t1">
       <NavBar />
       <main className="col-span-12">
