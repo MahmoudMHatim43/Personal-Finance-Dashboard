@@ -51,11 +51,12 @@ function History() {
       animate="visible"
       variants={containerVariants}
       className="col-span-3 md:col-span-2 grid grid-cols-4 max-h-svh overflow-y-scroll history-section">
-      {[...Array(50)].map((_, idx) => (
+      {[...Array(25)].map((_, idx) => (
         <motion.div
+          key={idx}
           variants={itemVariants}
           className="col-span-4 flex justify-between p-2 border-b border-[#e1e1e1] dark:border-[#3d3d3d] text-small-text sm:text-body-text hover:bg-gray-200 dark:hover:bg-zinc-800 transition-colors">
-          <TransactionInformation key={idx} data={transactionData} />
+          <TransactionInformation data={transactionData} />
         </motion.div>
       ))}
     </motion.div>

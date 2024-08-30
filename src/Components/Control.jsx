@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { TfiCalendar } from "react-icons/tfi";
 
-function Control() {
+function Control({ title }) {
   const [activePeriod, setActivePeriod] = useState("This Month");
   const periods = ["This Month", "Last Month", "This Year", "Last 12 Months"];
   return (
-    <section className="col-span-3 grid grid-cols-3 grid-rows-2 gap-2">
+    <section className="col-span-12 grid grid-cols-3 grid-rows-2 gap-2">
       <div className="col-span-3 md:col-span-1 text-logo-name font-lato font-bold tracking-wide">
-        Hi, Mahmoud
+        {title}
       </div>
       <div
         className="col-span-3 md:col-span-2 place-self-center md:place-self-end flex items-center justify-between h-full

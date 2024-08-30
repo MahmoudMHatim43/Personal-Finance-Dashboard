@@ -25,7 +25,7 @@ function Operations() {
     },
   ];
   return (
-    <section className="col-span-3 grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+    <section className="col-span-12 grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
       {operations.map((operation, idx) => (
         <OperationView key={idx} operation={operation} />
       ))}

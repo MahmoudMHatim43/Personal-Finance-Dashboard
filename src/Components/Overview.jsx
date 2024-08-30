@@ -1,11 +1,15 @@
 import PropTypes from "prop-types";
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 import { BsCurrencyDollar } from "react-icons/bs";
-
+import { motion } from "framer-motion";
 function ViewSection({ section }) {
   const { name, amount, rate } = section;
   return (
-    <div className="col-span-3 sm:col-span-1 flex flex-col justify-between p-2 font-lato bg-white-b2 dark:bg-black-b2 rounded-xl shadow-md">
+    <motion.div
+      initial={{ scale: 1, y: 0 }}
+      whileTap={{ scale: 1.01, y: -5 }}
+      whileHover={{ scale: 1.01, y: -5 }}
+      className="col-span-3 sm:col-span-1 flex flex-col justify-between p-2 font-lato bg-white-b2 dark:bg-black-b2 rounded-md shadow-md">
       <h2 className="p-2 text-small-text text-white-t2 dark:text-black-t2">
         {name}
       </h2>
@@ -23,19 +27,14 @@ function ViewSection({ section }) {
           {rate * 100 + "%"}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-function Overview() {
-  const sections = [
-    { name: "Balance", amount: 34000, rate: 0.23 },
-    { name: "Income", amount: 12000, rate: 0.37 },
-    { name: "Expenses", amount: 12000, rate: -0.17 },
-  ];
+function Overview({ section }) {
   return (
-    <section className="col-span-3 grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-      {sections.map((section, idx) => (
+    <section className="col-span-12 grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+      {section.map((section, idx) => (
         <ViewSection section={section} key={idx} />
       ))}
     </section>
