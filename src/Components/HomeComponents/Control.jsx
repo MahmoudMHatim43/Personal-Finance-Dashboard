@@ -16,7 +16,7 @@ function Control() {
           <span
             key={idx}
             onClick={() => setActivePeriod(period)}
-            className={`px-2 py-1 bg-white-b2 dark:bg-black-b2 tracking-wide rounded-md shadow-md cursor-pointer transition-colors duration-300 ${
+            className={`px-2 py-1 bg-white-b2 dark:bg-black-b2 rounded-md shadow-md cursor-pointer transition-colors duration-300 ${
               period === activePeriod && "bg-blue-300 dark:bg-blue-900"
             }`}>
             {period}
