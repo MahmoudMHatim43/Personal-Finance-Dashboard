@@ -1,6 +1,7 @@
 import Overview from "../Components/Overview";
 import Control from "../Components/Control";
 import CategoryCard from "../Components/BudgetComponents/CategoryCard";
+import GoalCard from "../Components/BudgetComponents/GoalCard";
 import BudgetCharts from "../Components/BudgetComponents/BudgetCharts";
 import {
   FaHome,
@@ -16,6 +17,19 @@ function Budget() {
     { name: "Expenses", amount: 22000, rate: 0.37 },
     { name: "Savings", amount: 12000, rate: -0.17 },
   ];
+  const goals = [
+    { name: "Emergency Fund", amount: 15000, rate: 0.4 },
+    { name: "Retirement Savings", amount: 100000, rate: 0.6 },
+    { name: "College Fund for Children", amount: 50000, rate: 0.25 },
+    { name: "Debt Repayment (Credit Card)", amount: 5000, rate: -0.1 },
+    { name: "Wedding Fund", amount: 20000, rate: 0.35 },
+    { name: "Home Renovation", amount: 12000, rate: 0.55 },
+    { name: "Holiday Shopping", amount: 2000, rate: 0.15 },
+    { name: "Investment Portfolio", amount: 30000, rate: 0.45 },
+    { name: "Fitness Equipment", amount: 1500, rate: 0.7 },
+    { name: "Travel Around the World", amount: 25000, rate: 0.1 },
+  ];
+
   const categories = [
     {
       title: "Home",
@@ -63,6 +77,20 @@ function Budget() {
       </section>
       <Overview section={sections} />
       <BudgetCharts />
+      <section className="col-span-12 grid grid-cols-12 gap-4">
+        <h1 className="col-span-12 text-6xl font-lato font-bold">Goals</h1>
+        <div className="col-span-12 flex flex-col md:flex-row items-center justify-between">
+          <h2 className="text-3xl">
+            Total Savings ${sections[2].amount.toLocaleString("en-US")}
+          </h2>
+          <span className="text-small-text">
+            Use the + icon to manage your savings across your goals
+          </span>
+        </div>
+        {goals.map((goal, idx) => (
+          <GoalCard key={idx} goal={goal} />
+        ))}
+      </section>
     </div>
   );
 }
