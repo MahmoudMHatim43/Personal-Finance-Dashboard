@@ -1,11 +1,13 @@
 import { AnimateNumber } from "../../Helpers";
 import { FaRegEdit } from "react-icons/fa";
 import { motion } from "framer-motion";
+
 function CategoryCard({ cat }) {
   const { icon: Icon, color, title, precent, budget } = cat;
   const spent = budget * precent;
   const userYellowAlret = spent >= budget * 0.7;
   const userRedAlert = spent >= budget * 0.9;
+
   return (
     <motion.div
       initial={{ scale: 1, y: 0 }}
@@ -19,11 +21,18 @@ function CategoryCard({ cat }) {
         </div>
         <FaRegEdit size={20} className="cursor-pointer" />
       </div>
-      <span className="flex gap-1 items-center text-small-text sm:text-body-text italic">
-        $<AnimateNumber value={spent} duration={2} />
+
+      {/* Updated amount display with specified font size and colors */}
+      <span className="flex gap-1 items-center font-semibold">
+        <span className="text-white-t1 dark:text-black-t1 text-xl">
+          $<AnimateNumber value={spent} duration={2} />
+        </span>
         {"/"}
-        <span>$ {budget.toLocaleString("en-US")}</span>
+        <span className="text-white-t2 dark:text-black-t2 text-small-text">
+          ${budget.toLocaleString("en-US")}
+        </span>
       </span>
+
       <div className="relative h-2 rounded-md overflow-hidden">
         <div className="absolute inset-0 h-2 bg-black dark:bg-white opacity-20"></div>
         <motion.div

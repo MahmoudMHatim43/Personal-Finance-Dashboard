@@ -83,7 +83,7 @@ function Budget() {
           <h2 className="text-3xl">
             Total Savings ${sections[2].amount.toLocaleString("en-US")}
           </h2>
-          <span className="text-small-text">
+          <span className="text-small-text text-white-t2 dark:text-black-t2">
             Use the + icon to manage your savings across your goals
           </span>
         </div>
