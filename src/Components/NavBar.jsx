@@ -45,7 +45,7 @@ function NavBar() {
           initial={{ left: "-100%", opacity: 0 }}
           animate={{ left: showNav ? 0 : "-100%", opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="fixed top-0 z-50 md:static flex flex-col md:flex-row md:flex-grow justify-evenly w-1/3 md:w-auto p-4 md:p-0 h-full bg-white-b2 dark:bg-black-b2 text-body-text">
+          className="fixed top-0 z-50 md:static flex flex-col md:flex-row md:flex-grow justify-evenly w-1/2 md:w-auto p-4 md:p-0 h-full bg-white-b2 dark:bg-black-b2 text-body-text">
           <RxCross2
             size={30}
             onClick={() => setShowNav(!showNav)}

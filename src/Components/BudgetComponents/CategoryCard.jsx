@@ -3,7 +3,9 @@ import { FaRegEdit } from "react-icons/fa";
 import { motion } from "framer-motion";
 function CategoryCard({ cat }) {
   const { icon: Icon, color, title, precent, budget } = cat;
-  const spent = budget - budget * precent;
+  const spent = budget * precent;
+  const userYellowAlret = spent >= budget * 0.7;
+  const userRedAlert = spent >= budget * 0.9;
   return (
     <motion.div
       initial={{ scale: 1, y: 0 }}
@@ -28,7 +30,14 @@ function CategoryCard({ cat }) {
           initial={{ width: 0 }}
           animate={{ width: `${precent * 100}%` }}
           transition={{ duration: 2 }}
-          className="absolute left-0 h-2 bg-green-500"></motion.div>
+          className="absolute left-0 h-2"
+          style={{
+            backgroundColor: userRedAlert
+              ? "red"
+              : userYellowAlret
+              ? "yellow"
+              : "green",
+          }}></motion.div>
       </div>
     </motion.div>
   );
