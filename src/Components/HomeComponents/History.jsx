@@ -1,6 +1,27 @@
 import React from "react";
-import TransactionInformation from "./TransactionInformation.jsx";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import { motion } from "framer-motion";
+
+function TransactionInformation({ data }) {
+  const { name, method, amount, date } = data;
+  return (
+    <>
+      {/* To/from */}
+      <div>{name}</div>
+      {/* Method */}
+      <div className="text-blue-500">{method}</div>
+      {/* Amount */}
+      <div
+        className="flex gap-2 items-center"
+        style={{ color: amount > 0 ? "green" : "red" }}>
+        {amount > 0 ? <FaPlus size={12} /> : <FaMinus size={12} />}
+        {amount}
+      </div>
+      {/* Date */}
+      <div>{date}</div>
+    </>
+  );
+}
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -11,7 +32,6 @@ const containerVariants = {
     },
   },
 };
-
 const itemVariants = {
   hidden: { opacity: 0, x: -20 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },

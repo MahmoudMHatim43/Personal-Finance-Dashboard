@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Charts from "./Charts";
-import CategoryView from "./CategoryView";
 import { HiRefresh } from "react-icons/hi";
 import {
   FaHome,
@@ -9,6 +8,20 @@ import {
   FaShoppingCart,
   FaShoppingBag,
 } from "react-icons/fa";
+
+function CategoryView({ item }) {
+  const { icon: Icon, title, precent, color } = item;
+  return (
+    <div className="flex justify-between w-full text-[clamp(1rem,1.2vw,1.2vw)]">
+      <div className="flex gap-2">
+        <Icon color={color} />
+        <span>{title}</span>
+      </div>
+      <span className="text-small-text">{precent * 100}%</span>
+    </div>
+  );
+}
+
 function Summary() {
   const [type, setType] = useState("Pie");
   const categories = [
