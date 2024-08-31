@@ -1,86 +1,60 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
-import {
-  FaBell,
-  FaHome,
-  FaWallet,
-  FaChartBar,
-  FaExchangeAlt,
-  FaQuestionCircle,
-} from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { toggleSideBar } from "../../store/slices/navSlice";
+import { NavLink } from "react-router-dom";
+// icons
+import { FaBell, FaHome } from "react-icons/fa";
 import { MdSettings } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
-import { NavLink } from "react-router-dom";
-import { RxCross2 } from "react-icons/rx";
 
 function NavBar() {
-  const [isActive, setIsActive] = useState("");
-  const [showNav, setShowNav] = useState(false);
-  const activePage = useLocation().pathname;
-  useEffect(() => {
-    setIsActive(activePage.slice(1));
-  }, [activePage]);
-  const pages = [
-    { name: "Home", icon: FaHome },
-    { name: "Budget", icon: FaWallet },
-    { name: "Reports", icon: FaChartBar },
-    { name: "Transactions", icon: FaExchangeAlt },
-    { name: "Alerts", icon: FaBell },
-    { name: "Help", icon: FaQuestionCircle },
-  ];
+  const dispatch = useDispatch();
   return (
-    <header className="col-span-12 bg-white-b2 dark:bg-black-b2 shadow-md">
-      <nav className="flex items-center justify-between w-[95%] mx-auto">
-        <TfiMenuAlt
-          size={30}
-          onClick={() => setShowNav(!showNav)}
-          className="block md:hidden cursor-pointer"
-          aria-label="open menu"
-        />
-        <h1 className="p-1 text-logo-name text-blue-400 font-bree font-bold tracking-wider">
-          iFinance
-        </h1>
-        <motion.ul
-          initial={{ left: "-100%", opacity: 0 }}
-          animate={{ left: showNav ? 0 : "-100%", opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="fixed top-0 z-50 md:static flex flex-col md:flex-row md:flex-grow justify-evenly w-1/2 md:w-auto p-4 md:p-0 h-full bg-white-b2 dark:bg-black-b2 text-body-text">
-          <RxCross2
-            size={30}
-            onClick={() => setShowNav(!showNav)}
-            className="block md:hidden cursor-pointer"
-            aria-label="close menu"
+    <header className="sticky top-0 z-50 w-[95%] mx-auto mt-[2.5svh] p-2 border rounded-xl">
+      <nav className="flex items-center justify-between">
+        {/* Burger Menu Icon */}
+        <div className="flex items-center gap-4">
+          <TfiMenuAlt
+            onClick={() => dispatch(toggleSideBar())}
+            size={25}
+            className="cursor-pointer"
+            aria-label="toggle sidebar"
           />
-          {pages.map((page, idx) => (
-            <NavLink
-              key={idx}
-              to={`/${page.name.toLowerCase()}`}
-              onClick={() => setShowNav(false)}
-              className="relative group flex items-center gap-2 font-semibold cursor-pointer"
-              aria-label={page.name}>
-              <page.icon size={20} className="block md:hidden" />
-              <span
-                className={`
-                  ${
-                    page?.name.toLowerCase() === isActive &&
-                    "text-orange-500 duration-500"
-                  }`}>
-                {page.name}
-              </span>
-              <span className="absolute -bottom-1 left-0 md:left-1/2 md:-translate-x-1/2 w-0 h-[1px] duration-500 group-hover:w-3/4 bg-orange-500 "></span>
-            </NavLink>
-          ))}
-        </motion.ul>
-        <div className="flex items-center justify-between h-full p-1">
+          <NavLink to="/home" className="hover:text-blue-400 duration-500">
+            <FaHome size={20} />
+          </NavLink>
           <div className="flex items-center gap-4">
+            <NavLink
+              to="/home"
+              className="dark:text-gray-300 hover:text-blue-400 dark:hover:text-blue-300 duration-500">
+              Home
+            </NavLink>
+            <NavLink
+              to="/budget"
+              className="dark:text-gray-300 hover:text-blue-400 dark:hover:text-blue-300 duration-500">
+              Budget
+            </NavLink>
+            <NavLink
+              to="/reports"
+              className="dark:text-gray-300 hover:text-blue-400 dark:hover:text-blue-300 duration-500">
+              Reports
+            </NavLink>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+          <NavLink
+            to="/settings"
+            className="hover:text-blue-400 cursor-pointer duration-500">
             <MdSettings size={20} aria-label="settings" />
-            <FaBell size={20} aria-label="alerts" />
-            <div
-              className="bg-gray-500 w-10 h-10 rounded-full"
-              aria-label="user profile">
-              {/* Avatar */}
-            </div>
+          </NavLink>
+          <FaBell
+            size={20}
+            aria-label="alerts"
+            className="hover:text-blue-400 cursor-pointer duration-500"
+          />
+          <div
+            className="bg-gray-500 w-10 h-10 rounded-full cursor-pointer"
+            aria-label="user profile">
+            {/* Avatar */}
           </div>
         </div>
       </nav>

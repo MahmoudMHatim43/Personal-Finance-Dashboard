@@ -1,36 +1,18 @@
-:root {
-  --bgc: #f5f5f5;
+.main-grid {
+  display: grid;
+  grid-template-areas:
+    "side  body"
+    "side  body"
+    "side  body";
+  grid-template-columns: auto 1fr;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bgc: #121212;
-  }
+
+.side-part {
+  grid-area: side;
+  height: 100svh;
 }
-html body {
-  background-color: var(--bgc);
-}
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background-color: var(--bgc);
-  border-radius: 100svw;
-}
-::-webkit-scrollbar-thumb {
-  background-color: #b5b5b5;
-  border: 1px solid var(--bgc);
-  border-radius: 100svw;
-}
-.history-section::-webkit-scrollbar {
-  width: 5px;
-}
-.chart-section::-webkit-scrollbar {
-  display: none;
-}
-@supports (scrollbar-color: blue red) {
-  * {
-    scrollbar-color: #b5b5b5 var(--bgc);
-    scrollbar-width: thin;
-    scrollbar-arrow-color: transparent;
-  }
+.body-part {
+  grid-area: body;
+  height: 100svh;
+  overflow-y: scroll;
 }
