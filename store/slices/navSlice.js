@@ -32,5 +32,9 @@ const navSlice = createSlice({
     },
   },
 });
+// SELECTORS
+export const selectPages = (state) => state.nav.pages;
+export const selectIsSideBarOpen = (state) => state.nav.isSideBarOpen;
+// ACTIONS
 export const { openSideBar, closeSideBar, toggleSideBar } = navSlice.actions;
 export default navSlice.reducer;

@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { toggleSideBar } from "../../store/slices/navSlice";
 import { NavLink } from "react-router-dom";
@@ -7,10 +8,31 @@ import { MdSettings } from "react-icons/md";
 import { TfiMenuAlt } from "react-icons/tfi";
 
 function NavBar() {
+  const [scrolled, setScrolled] = useState(false);
+  const navRef = useRef(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      const isItTop = navRef.current.getBoundingClientRect().top;
+      setScrolled(isItTop === 12);
+    };
+    document
+      .querySelector(".body-part")
+      .addEventListener("scroll", handleScroll);
+    return () =>
+      document
+        .querySelector(".body-part")
+        .removeEventListener("scroll", handleScroll);
+  }, []);
   const dispatch = useDispatch();
+
   return (
-    <header className="sticky top-0 z-50 w-[95%] mx-auto mt-[2.5svh] p-2 border rounded-xl">
-      <nav className="flex items-center justify-between">
+    <header
+      className={`sticky top-1 z-50 w-[95%] mx-auto mt-8 p-2 rounded-xl transition-colors duration-300 ${
+        scrolled
+          ? "bg-[rgba(225,225,255,0.5)] dark:bg-[rgba(0,0,0,0.5)] backdrop-blur-md"
+          : ""
+      }`}>
+      <nav ref={navRef} className="flex items-center justify-between">
         {/* Burger Menu Icon */}
         <div className="flex items-center gap-4">
           <TfiMenuAlt

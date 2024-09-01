@@ -14,7 +14,7 @@ export default {
         bree: ["Bree Serif", "serif"],
       },
       colors: {
-        "white-b1": "#F5F5F5",
+        "white-b1": "#F0F8FF",
         "white-b2": "#FFF0F5",
         "white-t1": "#4A4A4A",
         "white-t2": "#6D6D6D",

@@ -2,23 +2,24 @@ import "./App.css";
 import SideBar from "./Components/SideBar";
 import Body from "./Components/Body";
 import { useSelector } from "react-redux";
+import { selectIsSideBarOpen } from "../store/slices/navSlice";
 import { motion } from "framer-motion";
 
 /* APP */
 function App() {
-  const { isSideBarOpen } = useSelector((state) => state.nav);
+  const isOpen = useSelector(selectIsSideBarOpen);
   return (
     <div className="main-grid grid gap-5 bg-white-b1 dark:bg-black-b1 text-white-t1 dark:text-black-t1">
       <motion.div
-        initial={{ display: isSideBarOpen ? 0 : "250px", opacity: 0 }}
+        initial={{ display: isOpen ? 0 : "250px", opacity: 0 }}
         animate={{
-          width: isSideBarOpen ? "250px" : 0,
-          opacity: isSideBarOpen ? 1 : 0,
+          width: isOpen ? "250px" : 0,
+          opacity: isOpen ? 1 : 0,
         }}
         className="side-part">
         <SideBar />
       </motion.div>
-      <main className="body-part border">
+      <main className="body-part">
         <Body />
       </main>
     </div>

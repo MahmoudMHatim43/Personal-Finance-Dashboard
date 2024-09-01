@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
+import { selectPages } from "../../store/slices/navSlice";
+import { NavLink, useLocation } from "react-router-dom";
 // icons
 import { MdSettings } from "react-icons/md";
 function SideBar() {
-  const { pages, isSideBarOpen } = useSelector((state) => state.nav);
+  const pages = useSelector(selectPages);
+  const currActivePage = useLocation().pathname.slice(1);
   const userName = "Mahmoud Mohamed"; // Example user name
   const userImage = "https://via.placeholder.com/150"; // Example user image (random image URL)
   return (
@@ -31,12 +34,17 @@ function SideBar() {
       <div>
         <ul className="flex flex-col gap-3">
           {pages.map((page, idx) => (
-            <li
+            <NavLink
+              to={`/${page.name.toLowerCase()}`}
               key={idx}
-              className="flex items-center gap-3 p-2 text-lg hover:bg-zinc-300 dark:hover:bg-zinc-800 rounded-lg cursor-pointer transition duration-300">
+              className={`flex items-center gap-3 p-2 text-lg hover:bg-zinc-300 dark:hover:bg-zinc-800 ${
+                page.name.toLowerCase() === currActivePage
+                  ? "bg-zinc-300 dark:bg-zinc-800"
+                  : ""
+              } rounded-lg cursor-pointer transition duration-300`}>
               <page.icon size={22} />
               <span>{page.name}</span>
-            </li>
+            </NavLink>
           ))}
         </ul>
       </div>
