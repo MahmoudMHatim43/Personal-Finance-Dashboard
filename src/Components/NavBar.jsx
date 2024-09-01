@@ -13,7 +13,7 @@ function NavBar() {
   useEffect(() => {
     const handleScroll = () => {
       const isItTop = navRef.current.getBoundingClientRect().top;
-      setScrolled(isItTop === 12);
+      setScrolled(isItTop <= 12);
     };
     document
       .querySelector(".body-part")
@@ -27,7 +27,7 @@ function NavBar() {
 
   return (
     <header
-      className={`sticky top-1 z-50 w-[95%] mx-auto mt-8 p-2 rounded-xl transition-colors duration-300 ${
+      className={`sticky top-1 z-50 mt-8 p-2 rounded-xl transition-colors duration-300 ${
         scrolled
           ? "bg-[rgba(225,225,255,0.5)] dark:bg-[rgba(0,0,0,0.5)] backdrop-blur-md"
           : ""

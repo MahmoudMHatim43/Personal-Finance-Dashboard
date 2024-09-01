@@ -6,7 +6,12 @@
     "side  body";
   grid-template-columns: auto 1fr;
 }
-
+@media (max-width: 1075px) {
+  .main-grid {
+    grid-template-columns: auto 100%;
+    overflow: hidden;
+  }
+}
 .side-part {
   grid-area: side;
   height: 100svh;
@@ -15,4 +20,13 @@
   grid-area: body;
   height: 100svh;
   overflow-y: scroll;
+  overflow-x: hidden;
+}
+.side-bar-bg {
+  background: linear-gradient(to bottom, #e2e2e4, #d4d4d8);
+}
+@media (prefers-color-scheme: dark) {
+  .side-bar-bg {
+    background: linear-gradient(to bottom, #262626, #18181b);
+  }
 }

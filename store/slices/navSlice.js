@@ -18,7 +18,7 @@ const navSlice = createSlice({
       { name: "Alerts", icon: FaBell },
       { name: "Help", icon: FaQuestionCircle },
     ],
-    isSideBarOpen: true,
+    isSideBarOpen: false,
   },
   reducers: {
     openSideBar: (state) => {

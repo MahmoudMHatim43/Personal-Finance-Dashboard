@@ -15,7 +15,7 @@ import Dashboard from "../Pages/Dashboard";
 
 function Body() {
   return (
-    <>
+    <div className="w-[95%] mx-auto">
       <NavBar />
       <Routes>
         <Route path="/home" element={<Home />} />
@@ -31,7 +31,7 @@ function Body() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

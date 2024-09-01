@@ -9,7 +9,7 @@ function Home() {
     { name: "Expenses", amount: 12000, rate: -0.17 },
   ];
   return (
-    <div className="grid grid-cols-12 grid-rows-[repeat(4,minmax(0,auto))] gap-y-10 w-[95%] md:w-[90%] mx-auto font-roboto">
+    <div className="grid grid-cols-12 grid-rows-[repeat(4,minmax(0,auto))] gap-y-10 w-full mx-auto font-roboto">
       <Control title={"Hi, Mahmoud"} />
       <Operations />
       <Overview section={sections} />

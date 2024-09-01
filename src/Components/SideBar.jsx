@@ -1,15 +1,16 @@
 import { useSelector } from "react-redux";
-import { selectPages } from "../../store/slices/navSlice";
+import { selectIsSideBarOpen, selectPages } from "../../store/slices/navSlice";
 import { NavLink, useLocation } from "react-router-dom";
 // icons
 import { MdSettings } from "react-icons/md";
 function SideBar() {
   const pages = useSelector(selectPages);
+  const isOpen = useSelector(selectIsSideBarOpen);
   const currActivePage = useLocation().pathname.slice(1);
   const userName = "Mahmoud Mohamed"; // Example user name
   const userImage = "https://via.placeholder.com/150"; // Example user image (random image URL)
   return (
-    <div className="flex flex-col gap-8 p-4 h-[95%] w-[97%] mx-auto my-[2.5svh] bg-zinc-200 dark:bg-zinc-900 rounded-2xl shadow-lg overflow-hidden">
+    <div className="flex flex-col gap-8 p-4 h-[95%] w-[97%] mx-auto my-[2.5svh] side-bar-bg rounded-2xl shadow-lg overflow-hidden">
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-3xl text-blue-400 font-bree font-bold tracking-wider">
           iFinance

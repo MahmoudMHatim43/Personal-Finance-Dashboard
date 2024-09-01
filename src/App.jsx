@@ -9,9 +9,9 @@ import { motion } from "framer-motion";
 function App() {
   const isOpen = useSelector(selectIsSideBarOpen);
   return (
-    <div className="main-grid grid gap-5 bg-white-b1 dark:bg-black-b1 text-white-t1 dark:text-black-t1">
+    <div className="main-grid grid bg-white-b1 dark:bg-black-b1 text-white-t1 dark:text-black-t1">
       <motion.div
-        initial={{ display: isOpen ? 0 : "250px", opacity: 0 }}
+        initial={{ width: 0, opacity: 0 }}
         animate={{
           width: isOpen ? "250px" : 0,
           opacity: isOpen ? 1 : 0,
