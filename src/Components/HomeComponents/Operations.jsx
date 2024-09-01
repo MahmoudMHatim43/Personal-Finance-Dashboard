@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { MdAddCircle } from "react-icons/md";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { TbTransferVertical } from "react-icons/tb";
+import { motion } from "framer-motion";
 
 function Operations() {
   const operations = [
@@ -33,17 +34,21 @@ function Operations() {
   );
 }
 function OperationView({ operation }) {
-  const { icon: Icon, color, title } = operation;
+  const { icon: Icon, title, color } = operation;
 
   return (
-    <div className="relative z-20 col-span-1 flex flex-col h-[12.5svh] p-4 font-lato bg- dark:bg-black-b2 text-center sm:text-start rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden">
+    <motion.div
+      whileHover={{ y: -5, scale: 1.01 }}
+      whileTap={{ y: -5, scale: 0.98 }}
+      className="relative z-10 col-span-1 flex flex-col h-[10svh] p-4 bg-white-b2 dark:bg-black-b2 text-center rounded-md overflow-hidden cursor-pointer"
+      style={{ boxShadow: `0px 0px 3px ${color}` }}>
       <Icon
         size={100}
-        color={color}
-        className="absolute right-5 sm:right-1/3 translate-x-1/2 top-0 opacity-30 -z-10"
+        className="absolute right-5 translate-x-1/2 top-0 opacity-50 -z-10 rounded-full"
+        style={{ border: `5px solid ${color}` }}
       />
       <span className="text-xl font-roboto font-semibold">{title}</span>
-    </div>
+    </motion.div>
   );
 }
 OperationView.propTypes = {

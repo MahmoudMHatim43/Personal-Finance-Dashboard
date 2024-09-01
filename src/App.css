@@ -16,12 +16,6 @@
   grid-area: side;
   height: 100svh;
 }
-.body-part {
-  grid-area: body;
-  height: 100svh;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
 .side-bar-bg {
   background: linear-gradient(to bottom, #e2e2e4, #d4d4d8);
 }
@@ -29,4 +23,9 @@
   .side-bar-bg {
     background: linear-gradient(to bottom, #262626, #18181b);
   }
+}
+.body-part {
+  grid-area: body;
+  height: 100svh;
+  overflow-y: scroll;
 }

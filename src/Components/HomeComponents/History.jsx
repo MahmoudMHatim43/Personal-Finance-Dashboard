@@ -1,24 +1,24 @@
 import React from "react";
-import { FaPlus, FaMinus } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { TbDotsVertical } from "react-icons/tb";
 
 function TransactionInformation({ data }) {
   const { name, method, amount, date } = data;
   return (
     <>
-      {/* To/from */}
-      <div>{name}</div>
-      {/* Method */}
-      <div className="text-blue-500">{method}</div>
-      {/* Amount */}
-      <div
-        className="flex gap-2 items-center"
+      <span className="col-span-1 truncate">{name}</span>
+      <span className="col-span-1 text-blue-500">{method}</span>
+      <span
+        className="col-span-1 flex gap-1 items-center justify-center"
         style={{ color: amount > 0 ? "green" : "red" }}>
         {amount > 0 ? <FaPlus size={12} /> : <FaMinus size={12} />}
-        {amount}
+        {amount.toLocaleString("en-US")}
+      </span>
+      <div className="col-span-1 flex justify-around items-center">
+        <span>{date}</span>
+        <TbDotsVertical size={25} />
       </div>
-      {/* Date */}
-      <div>{date}</div>
     </>
   );
 }
@@ -39,7 +39,7 @@ const itemVariants = {
 
 function History() {
   const transactionData = {
-    name: "Facebook",
+    name: "Binance",
     method: "Bank Transfer",
     amount: 4530,
     date: "2022-01-01",
@@ -50,14 +50,14 @@ function History() {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="col-span-3 md:col-span-2 grid grid-cols-4 max-h-svh overflow-y-scroll history-section">
-      {[...Array(25)].map((_, idx) => (
-        <motion.div
+      className="col-span-4 md:col-span-3 grid grid-cols-4 max-h-svh overflow-y-scroll history-section">
+      {[...Array(40)].map((_, idx) => (
+        <motion.span
           key={idx}
           variants={itemVariants}
-          className="col-span-4 flex justify-between p-2 border-b border-[#e1e1e1] dark:border-[#3d3d3d] text-small-text sm:text-body-text hover:bg-gray-200 dark:hover:bg-zinc-800 transition-colors">
+          className="col-span-4 grid grid-cols-4 items-center gap-2 p-2 border-b border-[#e1e1e1] dark:border-[#3d3d3d] text-small-text sm:text-body-text text-nowrap hover:bg-gray-200 dark:hover:bg-zinc-800 transition-colors">
           <TransactionInformation data={transactionData} />
-        </motion.div>
+        </motion.span>
       ))}
     </motion.div>
   );
