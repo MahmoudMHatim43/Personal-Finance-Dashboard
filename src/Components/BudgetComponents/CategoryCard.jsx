@@ -1,6 +1,7 @@
 import { AnimateNumber } from "../../Helpers";
 import { FaRegEdit } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 
 function CategoryCard({ cat }) {
   const { icon: Icon, color, title, precent, budget } = cat;
@@ -19,7 +20,9 @@ function CategoryCard({ cat }) {
           <Icon color={color} />
           <span>{title}</span>
         </div>
-        <FaRegEdit size={20} className="cursor-pointer" />
+        <NavLink to={"/settings"}>
+          <FaRegEdit size={20} className="cursor-pointer" />
+        </NavLink>
       </div>
 
       {/* Updated amount display with specified font size and colors */}

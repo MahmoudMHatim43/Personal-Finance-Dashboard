@@ -14,11 +14,11 @@ function ViewSection({ section }) {
         {name}
       </h2>
       <div className="flex flex-col justify-between">
-        <span className="text-logo-name flex items-center">
+        <span className="text-mid-header sm:text-big-header flex items-center">
           {<BsCurrencyDollar />}
           {amount.toLocaleString("en-US")}
         </span>
-        <span className="place-self-end flex items-center gap-2 px-2 py-1 text-lg sm:text-small-text bg-white-b1 dark:bg-black-b1 rounded-md">
+        <span className="place-self-end flex items-center gap-2 px-2 py-1 text-small-text bg-white-b1 dark:bg-black-b1 rounded-md">
           {rate >= 0 ? (
             <FaArrowTrendUp color="green" />
           ) : (

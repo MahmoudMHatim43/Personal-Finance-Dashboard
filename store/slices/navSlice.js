@@ -7,6 +7,7 @@ import {
   FaExchangeAlt,
   FaQuestionCircle,
 } from "react-icons/fa";
+
 const navSlice = createSlice({
   name: "nav",
   initialState: {
