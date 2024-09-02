@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 import {
   FaHome,
@@ -9,9 +9,17 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import { BiCategoryAlt } from "react-icons/bi";
-
+const iconMap = {
+  FaHome,
+  FaCreditCard,
+  FaBus,
+  FaShoppingCart,
+  FaShoppingBag,
+  FaPlus,
+  BiCategoryAlt,
+};
 const budgetSlice = createSlice({
-  name: "budgets",
+  name: "budget",
   initialState: {
     initialBalance: 0,
     currbalance: 0,
@@ -21,30 +29,30 @@ const budgetSlice = createSlice({
     options: [
       {
         name: "Home",
-        icon: FaHome,
+        icon: "FaHome",
         color: "rgba(255, 100, 120, 1)",
       },
       {
         name: "Credit Card",
-        icon: FaCreditCard,
+        icon: "FaCreditCard",
         color: "rgba(55, 160, 255, 1)",
       },
       {
         name: "Transportation",
-        icon: FaBus,
+        icon: "FaBus",
         color: "rgba(255, 210, 80, 1)",
       },
       {
         name: "Groceries",
-        icon: FaShoppingCart,
+        icon: "FaShoppingCart",
         color: "rgba(80, 190, 100, 1)",
       },
       {
         name: "Shopping",
-        icon: FaShoppingBag,
+        icon: "FaShoppingBag",
         color: "rgba(150, 100, 255, 1)",
       },
-      { name: "Custom", icon: FaPlus, color: "rgba(255, 150, 0, 1)" },
+      { name: "Custom", icon: "FaPlus", color: "rgba(255, 150, 0, 1)" },
     ],
     userChoice: [],
   },
@@ -81,10 +89,10 @@ const budgetSlice = createSlice({
     },
     removeIncome: (state, action) => {
       const { amount, id } = action.payload;
-      state.currbalance -= amount;
       state.income = state.income.filter(
         (transaction) => transaction.id !== id
       );
+      state.currbalance -= amount;
       state.balanceHistory.push({
         balance: state.currbalance,
         date: new Date().toISOString(),
@@ -92,10 +100,10 @@ const budgetSlice = createSlice({
     },
     removeExpense: (state, action) => {
       const { amount, id } = action.payload;
-      state.currbalance += amount;
       state.expense = state.expense.filter(
         (transaction) => transaction.id !== id
       );
+      state.currbalance += amount;
       state.balanceHistory.push({
         balance: state.currbalance,
         date: new Date().toISOString(),
@@ -108,14 +116,25 @@ const budgetSlice = createSlice({
         name: name,
         amount: amount,
         rate: state.currbalance > 0 ? amount / state.currbalance : 0,
-        icon: option ? option.icon : BiCategoryAlt,
+        icon: option ? option.icon : "BiCategoryAlt",
         color: option ? option.color : "rgba(255, 150, 0, 1)",
       };
       state.userChoice.push(newCategory);
     },
   },
 });
-
+export const selectBalance = (state) => state.budget.currbalance;
+export const selectIncome = (state) => state.budget.income;
+export const selectExpense = (state) => state.budget.expense;
+export const selectOptions = (state) => state.budget.options;
+export const selectUserChoice = (state) => state.budget.userChoice;
+export const selectAllTransactions = createSelector(
+  selectIncome,
+  selectExpense,
+  (income, expense) =>
+    [...income, ...expense].sort((a, b) => new Date(b.date) - new Date(a.date))
+);
+export const getIconComponent = (iconName) => iconMap[iconName];
 export const {
   addInitialBalance,
   addTransaction,
