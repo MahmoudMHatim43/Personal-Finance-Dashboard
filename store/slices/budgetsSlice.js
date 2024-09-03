@@ -1,15 +1,9 @@
-import { createSlice, createSelector } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
-import {
-  FaHome,
-  FaCreditCard,
-  FaBus,
-  FaShoppingCart,
-  FaShoppingBag,
-  FaPlus,
-} from "react-icons/fa";
+import { FaHome, FaCreditCard, FaBus, FaShoppingCart, FaShoppingBag, FaPlus } from "react-icons/fa";
 import { BiCategoryAlt } from "react-icons/bi";
-const iconMap = {
+
+export const iconMap = {
   FaHome,
   FaCreditCard,
   FaBus,
@@ -18,128 +12,175 @@ const iconMap = {
   FaPlus,
   BiCategoryAlt,
 };
+
 const budgetSlice = createSlice({
   name: "budget",
   initialState: {
     initialBalance: 0,
-    currbalance: 0,
-    balanceHistory: [],
-    income: [],
-    expense: [],
-    options: [
+    totalBalance: 0,
+    balanceHistory: [{ id: uuid(), date: "2024-01-01T00:00:00.000Z", amount: 0 }],
+    incomes: [
       {
-        name: "Home",
-        icon: "FaHome",
-        color: "rgba(255, 100, 120, 1)",
+        id: uuid(),
+        date: "2024-01-01T00:00:00.000Z",
+        type: "in",
+        amount: 0,
+        source: "salary",
+        method: "bank transfer",
+        category: "home",
       },
-      {
-        name: "Credit Card",
-        icon: "FaCreditCard",
-        color: "rgba(55, 160, 255, 1)",
-      },
-      {
-        name: "Transportation",
-        icon: "FaBus",
-        color: "rgba(255, 210, 80, 1)",
-      },
-      {
-        name: "Groceries",
-        icon: "FaShoppingCart",
-        color: "rgba(80, 190, 100, 1)",
-      },
-      {
-        name: "Shopping",
-        icon: "FaShoppingBag",
-        color: "rgba(150, 100, 255, 1)",
-      },
-      { name: "Custom", icon: "FaPlus", color: "rgba(255, 150, 0, 1)" },
     ],
-    userChoice: [],
+    expenses: [
+      {
+        id: uuid(),
+        date: "2024-01-01T00:00:00.000Z",
+        type: "out",
+        amount: 0,
+        source: "walmart",
+        method: "bank transfer",
+        category: "home",
+      },
+    ],
+    filter: {
+      start: null,
+      end: null,
+      category: null,
+      type: null,
+    },
+    options: [
+      { name: "home", icon: "FaHome" },
+      { name: "card", icon: "FaCreditCard" },
+      { name: "transport", icon: "FaBus" },
+      { name: "shopping", icon: "FaShoppingCart" },
+      { name: "grocery", icon: "FaShoppingBag" },
+      { name: "add", icon: "FaPlus" },
+    ],
+    userChoice: [
+      { name: "home", icon: "FaHome" },
+      { name: "card", icon: "FaCreditCard" },
+      { name: "transport", icon: "FaBus" },
+      { name: "shopping", icon: "FaShoppingCart" },
+    ],
   },
   reducers: {
     addInitialBalance: (state, action) => {
-      state.initialBalance = action.payload;
-      state.currbalance = action.payload;
+      const { amount } = action.payload;
+      state.initialBalance = amount;
+      state.totalBalance = amount;
+    },
+    addIncome: (state, action) => {
+      const { amount, source, category, method, date } = action.payload;
+      const newIncome = {
+        id: uuid(),
+        date: date,
+        type: "in",
+        amount: amount,
+        source: source,
+        method: method,
+        category: category,
+      };
+      state.incomes.push(newIncome);
+      state.totalBalance += amount;
       state.balanceHistory.push({
-        balance: state.currbalance,
-        date: new Date().toISOString(),
+        id: uuid(),
+        date: date,
+        amount: state.totalBalance,
       });
     },
-    addTransaction: (state, action) => {
-      const { method, amount, source, type } = action.payload;
-      const transactionDetails = {
+    addExpense: (state, action) => {
+      const { amount, source, category, method, date } = action.payload;
+      const newExpense = {
         id: uuid(),
-        date: new Date().toISOString(),
-        source: source,
+        date: date,
+        type: "out",
         amount: amount,
+        source: source,
         method: method,
+        category: category,
       };
-      if (type === "income") {
-        state.currbalance += amount;
-        state.income.push(transactionDetails);
-      }
-      if (type === "expense") {
-        state.currbalance -= amount;
-        state.expense.push(transactionDetails);
-      }
+      state.expenses.push(newExpense);
+      state.totalBalance -= amount;
       state.balanceHistory.push({
-        balance: state.currbalance,
-        date: new Date().toISOString(),
+        id: uuid(),
+        date: date,
+        amount: state.totalBalance,
       });
     },
     removeIncome: (state, action) => {
-      const { amount, id } = action.payload;
-      state.income = state.income.filter(
-        (transaction) => transaction.id !== id
-      );
-      state.currbalance -= amount;
-      state.balanceHistory.push({
-        balance: state.currbalance,
-        date: new Date().toISOString(),
-      });
+      const id = action.payload;
+      const currIncome = state.incomes.find((income) => income.id === id);
+      if (currIncome) {
+        state.totalBalance -= currIncome.amount;
+        state.balanceHistory.push({
+          id: uuid(),
+          date: new Date().toISOString(),
+          amount: state.totalBalance,
+        });
+        state.incomes = state.incomes.filter((income) => income.id !== id);
+      }
     },
     removeExpense: (state, action) => {
-      const { amount, id } = action.payload;
-      state.expense = state.expense.filter(
-        (transaction) => transaction.id !== id
-      );
-      state.currbalance += amount;
-      state.balanceHistory.push({
-        balance: state.currbalance,
-        date: new Date().toISOString(),
-      });
+      const id = action.payload;
+      const currExpense = state.expenses.find((expense) => expense.id === id);
+      if (currExpense) {
+        state.totalBalance += currExpense.amount;
+        state.balanceHistory.push({
+          id: uuid(),
+          date: new Date().toISOString(),
+          amount: state.totalBalance,
+        });
+        state.expenses = state.expenses.filter((expense) => expense.id !== id);
+      }
     },
     addChoice: (state, action) => {
-      const { name, amount } = action.payload;
-      const option = state.options.find((option) => option.name === name);
-      const newCategory = {
+      const { name, icon } = action.payload;
+      const userOption = {
         name: name,
-        amount: amount,
-        rate: state.currbalance > 0 ? amount / state.currbalance : 0,
-        icon: option ? option.icon : "BiCategoryAlt",
-        color: option ? option.color : "rgba(255, 150, 0, 1)",
+        icon: icon,
       };
-      state.userChoice.push(newCategory);
+      state.options.push(userOption);
+    },
+    setFilter: (state, action) => {
+      state.filter = {
+        ...state.filter,
+        ...action.payload,
+      };
     },
   },
 });
-export const selectBalance = (state) => state.budget.currbalance;
-export const selectIncome = (state) => state.budget.income;
-export const selectExpense = (state) => state.budget.expense;
-export const selectOptions = (state) => state.budget.options;
-export const selectUserChoice = (state) => state.budget.userChoice;
+export const selectIncomes = (state) => state.budget.incomes;
+export const selectExpense = (state) => state.budget.expenses;
+export const selectTotalBalance = (state) => state.budget.totalBalance;
+export const selectInitialBalance = (state) => state.budget.initialBalance;
+export const selectFilter = (state) => state.budget.filter;
 export const selectAllTransactions = createSelector(
-  selectIncome,
+  selectIncomes,
   selectExpense,
-  (income, expense) =>
-    [...income, ...expense].sort((a, b) => new Date(b.date) - new Date(a.date))
+  (incomes, expenses) => [...incomes, ...expenses]
 );
-export const getIconComponent = (iconName) => iconMap[iconName];
-export const {
-  addInitialBalance,
-  addTransaction,
-  removeIncome,
-  removeExpense,
-  addChoice,
-} = budgetSlice.actions;
+export const selectFilteredTransactions = createSelector(
+  selectAllTransactions,
+  selectFilter,
+  (transations, filter) => {
+    const { start, end, type, category } = filter;
+    let filterd = transations;
+    if (start || end) {
+      filterd = filterd.filter((transaction) => {
+        const date = new Date(transaction.date);
+        const isAfterDate = start ? date >= new Date(start) : true;
+        const isBeforeDate = end ? date <= new Date(end) : true;
+        return isAfterDate && isBeforeDate;
+      });
+    }
+    if (type) {
+      filterd = filterd.filter((transation) => transation.type === type);
+    }
+    if (category) {
+      filterd = filterd.filter((transation) => transation.category === category);
+    }
+    return filterd;
+  }
+);
+export const { addInitialBalance, addIncome, addExpense, addChoice, setFilter } =
+  budgetSlice.actions;
 export default budgetSlice.reducer;

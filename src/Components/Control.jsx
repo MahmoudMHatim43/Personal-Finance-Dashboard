@@ -1,9 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter, selectFilter } from "../../store/slices/budgetsSlice";
 import { TfiCalendar } from "react-icons/tfi";
 
+const periods = ["All Time", "This Month", "Last Month", "This Year", "Last 12 Months"];
 function Control({ title }) {
-  const [activePeriod, setActivePeriod] = useState("This Month");
-  const periods = ["This Month", "Last Month", "This Year", "Last 12 Months"];
+  const [activePeriod, setActivePeriod] = useState("All Time");
+  const dispatch = useDispatch();
+  const filter = useSelector(selectFilter);
+  console.log(filter);
+  useEffect(() => {
+    const date = new Date();
+    let startDate = null;
+    let endDate = date.toISOString();
+
+    switch (activePeriod) {
+      case "This Month":
+        startDate = new Date(date.getFullYear(), date.getMonth(), 1).toISOString();
+        break;
+      case "Last Month":
+        startDate = new Date(date.getFullYear(), date.getMonth() - 1, 1).toISOString();
+        endDate = new Date(date.getFullYear(), date.getMonth(), 0).toISOString();
+        break;
+      case "This Year":
+        startDate = new Date(date.getFullYear(), 0, 1).toISOString();
+        break;
+      case "Last 12 Months":
+        startDate = new Date(date.getFullYear() - 1, date.getMonth() + 1, 1).toISOString();
+        break;
+      case "All Time":
+      default:
+        startDate = null;
+        endDate = null;
+        break;
+    }
+    dispatch(
+      setFilter({
+        start: startDate,
+        end: endDate,
+        type: null,
+        category: null,
+      })
+    );
+  }, [activePeriod, dispatch]);
   return (
     <section className="col-span-12 grid grid-cols-3 grid-rows-[repeat(2,minmax(0,auto))] gap-2">
       <div className="col-span-3 md:col-span-1 text-big-header font-lato font-bold tracking-wide">
@@ -14,7 +53,7 @@ function Control({ title }) {
           <span
             key={idx}
             onClick={() => setActivePeriod(period)}
-            className={`px-2 py-1 bg-white-b2 dark:bg-black-b2 rounded-md shadow-md cursor-pointer transition-colors duration-300 ${
+            className={`p-1 bg-white-b2 dark:bg-black-b2 rounded-md shadow-md cursor-pointer transition-colors duration-300 ${
               period === activePeriod && "bg-blue-light dark:bg-blue-dark"
             }`}>
             {period}

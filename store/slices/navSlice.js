@@ -7,17 +7,24 @@ import {
   FaExchangeAlt,
   FaQuestionCircle,
 } from "react-icons/fa";
-
+export const iconMap = {
+  FaBell,
+  FaHome,
+  FaWallet,
+  FaChartBar,
+  FaExchangeAlt,
+  FaQuestionCircle,
+};
 const navSlice = createSlice({
   name: "nav",
   initialState: {
     pages: [
-      { name: "Home", icon: FaHome },
-      { name: "Budget", icon: FaWallet },
-      { name: "Reports", icon: FaChartBar },
-      { name: "Transactions", icon: FaExchangeAlt },
-      { name: "Alerts", icon: FaBell },
-      { name: "Help", icon: FaQuestionCircle },
+      { name: "Home", icon: "FaHome" },
+      { name: "Budget", icon: "FaWallet" },
+      { name: "Reports", icon: "FaChartBar" },
+      { name: "Transactions", icon: "FaExchangeAlt" },
+      { name: "Alerts", icon: "FaBell" },
+      { name: "Help", icon: "FaQuestionCircle" },
     ],
     isSideBarOpen: false,
   },

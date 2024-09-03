@@ -1,15 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectIsSideBarOpen,
-  selectPages,
-  toggleSideBar,
-} from "../../store/slices/navSlice";
+import { selectPages, toggleSideBar, iconMap } from "../../store/slices/navSlice";
 import { NavLink, useLocation } from "react-router-dom";
 // icons
 import { MdSettings } from "react-icons/md";
 function SideBar() {
   const pages = useSelector(selectPages);
-  const isOpen = useSelector(selectIsSideBarOpen);
   const dispatch = useDispatch();
   const currActivePage = useLocation().pathname.slice(1);
   const userName = "Mahmoud Mohamed";
@@ -25,11 +20,7 @@ function SideBar() {
       </div>
 
       <div className="flex flex-col items-center gap-2">
-        <img
-          src={userImage}
-          alt="User profile"
-          className="w-20 h-20 rounded-full object-cover"
-        />
+        <img src={userImage} alt="User profile" className="w-20 h-20 rounded-full object-cover" />
         <span className="text-md text-nowrap font-semibold">{userName}</span>
         <button className="flex items-center gap-2 text-sm text-blue-500 dark:text-blue-300">
           <MdSettings size={18} />
@@ -40,20 +31,21 @@ function SideBar() {
 
       <div>
         <ul className="flex flex-col gap-3">
-          {pages.map((page, idx) => (
-            <NavLink
-              onClick={() => dispatch(toggleSideBar())}
-              to={`/${page.name.toLowerCase()}`}
-              key={idx}
-              className={`flex items-center gap-3 p-2 text-lg hover:bg-zinc-300 dark:hover:bg-zinc-800 ${
-                page.name.toLowerCase() === currActivePage
-                  ? "bg-zinc-300 dark:bg-zinc-800"
-                  : ""
-              } rounded-lg cursor-pointer transition duration-300`}>
-              <page.icon size={22} />
-              <span>{page.name}</span>
-            </NavLink>
-          ))}
+          {pages.map((page, idx) => {
+            const IconComponent = iconMap[page.icon];
+            return (
+              <NavLink
+                onClick={() => dispatch(toggleSideBar())}
+                to={`/${page.name.toLowerCase()}`}
+                key={idx}
+                className={`flex items-center gap-3 p-2 text-lg hover:bg-zinc-300 dark:hover:bg-zinc-800 ${
+                  page.name.toLowerCase() === currActivePage ? "bg-zinc-300 dark:bg-zinc-800" : ""
+                } rounded-lg cursor-pointer transition duration-300`}>
+                <IconComponent size={22} />
+                <span>{page.name}</span>
+              </NavLink>
+            );
+          })}
         </ul>
       </div>
     </div>
