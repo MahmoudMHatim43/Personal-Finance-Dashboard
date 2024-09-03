@@ -1,7 +1,19 @@
+import { useSelector } from "react-redux";
+import { selectFilteredTransactions, selectFilteredBalance } from "../../store/slices/budgetsSlice";
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { motion } from "framer-motion";
-function ViewSection({ section }) {
+function ViewSection({ section, type }) {
+  const transactions = useSelector(selectFilteredTransactions);
+  const balance = useSelector(selectFilteredBalance);
+  const amount =
+    (type &&
+      transactions
+        .filter((transaction) => transaction.type === type)
+        .reduce((acc, curr) => acc + curr.amount, 0)) ||
+    balance;
+  console.log({ balance, transactions });
+
   const rate = 0.5;
   return (
     <motion.div
@@ -13,7 +25,7 @@ function ViewSection({ section }) {
       <div className="flex flex-col justify-between">
         <span className="text-mid-header sm:text-big-header flex items-center">
           {<BsCurrencyDollar />}
-          {section}
+          {amount}
         </span>
         <span className="place-self-end flex items-center gap-2 px-2 py-1 text-small-text bg-white-b1 dark:bg-black-b1 rounded-md">
           {rate >= 0 ? <FaArrowTrendUp color="green" /> : <FaArrowTrendDown color="red" />}
@@ -27,9 +39,10 @@ function ViewSection({ section }) {
 function Overview({ sections }) {
   return (
     <section className="col-span-12 grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
-      {sections.map((section, idx) => (
-        <ViewSection section={section} key={idx} />
-      ))}
+      {sections.map((section, idx) => {
+        const type = section === "Incomes" ? "in" : section === "Expenses" ? "out" : null;
+        return <ViewSection type={type} section={section} key={idx} />;
+      })}
     </section>
   );
 }

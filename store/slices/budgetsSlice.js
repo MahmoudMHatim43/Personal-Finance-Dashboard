@@ -18,13 +18,13 @@ const budgetSlice = createSlice({
   initialState: {
     initialBalance: 0,
     totalBalance: 0,
-    balanceHistory: [{ id: uuid(), date: "2024-01-01T00:00:00.000Z", amount: 0 }],
+    balanceHistory: [{ id: uuid(), date: "2024-01-01T00:00:00.000Z", amount: 30000 }],
     incomes: [
       {
         id: uuid(),
         date: "2024-01-01T00:00:00.000Z",
         type: "in",
-        amount: 0,
+        amount: 20000,
         source: "salary",
         method: "bank transfer",
         category: "home",
@@ -35,7 +35,7 @@ const budgetSlice = createSlice({
         id: uuid(),
         date: "2024-01-01T00:00:00.000Z",
         type: "out",
-        amount: 0,
+        amount: 10000,
         source: "walmart",
         method: "bank transfer",
         category: "home",
@@ -152,11 +152,31 @@ export const selectIncomes = (state) => state.budget.incomes;
 export const selectExpense = (state) => state.budget.expenses;
 export const selectTotalBalance = (state) => state.budget.totalBalance;
 export const selectInitialBalance = (state) => state.budget.initialBalance;
+export const selectBalanceHistory = (state) => state.budget.balanceHistory;
 export const selectFilter = (state) => state.budget.filter;
 export const selectAllTransactions = createSelector(
   selectIncomes,
   selectExpense,
   (incomes, expenses) => [...incomes, ...expenses]
+);
+export const selectFilteredBalance = createSelector(
+  selectBalanceHistory,
+  selectFilter,
+  (history, filter) => {
+    const { start, end } = filter;
+    let filterd = history;
+    let total = 0;
+
+    filterd = filterd.filter((history) => {
+      const date = new Date(history.date);
+      const isAfterDate = start ? date >= new Date(start) : true;
+      const isBeforeDate = end ? date <= new Date(end) : true;
+      return isAfterDate && isBeforeDate;
+    });
+
+    total = filterd.reduce((acc, curr) => acc + curr.amount, 0);
+    return total;
+  }
 );
 export const selectFilteredTransactions = createSelector(
   selectAllTransactions,
@@ -164,14 +184,14 @@ export const selectFilteredTransactions = createSelector(
   (transations, filter) => {
     const { start, end, type, category } = filter;
     let filterd = transations;
-    if (start || end) {
-      filterd = filterd.filter((transaction) => {
-        const date = new Date(transaction.date);
-        const isAfterDate = start ? date >= new Date(start) : true;
-        const isBeforeDate = end ? date <= new Date(end) : true;
-        return isAfterDate && isBeforeDate;
-      });
-    }
+
+    filterd = filterd.filter((transaction) => {
+      const date = new Date(transaction.date);
+      const isAfterDate = start ? date >= new Date(start) : true;
+      const isBeforeDate = end ? date <= new Date(end) : true;
+      return isAfterDate && isBeforeDate;
+    });
+
     if (type) {
       filterd = filterd.filter((transation) => transation.type === type);
     }
