@@ -4,17 +4,20 @@ import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { motion } from "framer-motion";
 function ViewSection({ section, type }) {
-  const transactions = useSelector(selectFilteredTransactions);
+  const transactions = useSelector(selectFilteredTransactions).filter(
+    (trans) => trans.type === type
+  );
+  const transactionsAmount = transactions
+    .filter((trans) => trans.type === type)
+    .reduce((acc, curr) => acc + curr.amount, 0);
   const balance = useSelector(selectFilteredBalance);
-  const amount =
-    (type &&
-      transactions
-        .filter((transaction) => transaction.type === type)
-        .reduce((acc, curr) => acc + curr.amount, 0)) ||
-    balance;
-  console.log({ balance, transactions });
-
-  const rate = 0.5;
+  const balanceAmount = balance.reduce((acc, curr) => acc + curr.amount, 0);
+  function rateCount(last, first) {
+    return first && last && last !== 0 ? (last - first) / first : 0;
+  }
+  const rate = type
+    ? rateCount(transactions[transactions.length - 1]?.amount, transactions[0]?.amount)
+    : rateCount(balance[balance.length - 1]?.amount, balance[0]?.amount);
   return (
     <motion.div
       initial={{ scale: 1, y: 0 }}
@@ -25,11 +28,15 @@ function ViewSection({ section, type }) {
       <div className="flex flex-col justify-between">
         <span className="text-mid-header sm:text-big-header flex items-center">
           {<BsCurrencyDollar />}
-          {amount}
+          {type ? transactionsAmount : balanceAmount}
         </span>
         <span className="place-self-end flex items-center gap-2 px-2 py-1 text-small-text bg-white-b1 dark:bg-black-b1 rounded-md">
-          {rate >= 0 ? <FaArrowTrendUp color="green" /> : <FaArrowTrendDown color="red" />}
-          {(rate * 100).toFixed(2) + "%"}
+          {rate > 0 ? (
+            <FaArrowTrendUp color={type === "out" ? "red" : "green"} />
+          ) : rate < 0 ? (
+            <FaArrowTrendDown color={type === "out" ? "green" : "red"} />
+          ) : null}
+          {(Math.abs(rate) * 100).toFixed(2) + "%"}
         </span>
       </div>
     </motion.div>

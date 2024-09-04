@@ -165,17 +165,13 @@ export const selectFilteredBalance = createSelector(
   (history, filter) => {
     const { start, end } = filter;
     let filterd = history;
-    let total = 0;
-
     filterd = filterd.filter((history) => {
       const date = new Date(history.date);
       const isAfterDate = start ? date >= new Date(start) : true;
       const isBeforeDate = end ? date <= new Date(end) : true;
       return isAfterDate && isBeforeDate;
     });
-
-    total = filterd.reduce((acc, curr) => acc + curr.amount, 0);
-    return total;
+    return filterd;
   }
 );
 export const selectFilteredTransactions = createSelector(
@@ -201,6 +197,8 @@ export const selectFilteredTransactions = createSelector(
     return filterd;
   }
 );
+export const selectOptions = (state) => state.budget.options;
+export const selectUserChoice = (state) => state.budget.userChoice;
 export const { addInitialBalance, addIncome, addExpense, addChoice, setFilter } =
   budgetSlice.actions;
 export default budgetSlice.reducer;
