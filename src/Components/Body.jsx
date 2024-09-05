@@ -15,7 +15,7 @@ import Dashboard from "../Pages/Dashboard";
 
 function Body() {
   return (
-    <div className="w-[95%] mx-auto">
+    <div className="w-[95%] sm:w-[90%] mx-auto">
       <NavBar />
       <Routes>
         <Route path="/home" element={<Home />} />

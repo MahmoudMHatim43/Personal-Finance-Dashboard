@@ -56,10 +56,22 @@ const budgetSlice = createSlice({
       { name: "add", icon: "FaPlus" },
     ],
     userChoice: [
-      { name: "home", icon: "FaHome" },
-      { name: "card", icon: "FaCreditCard" },
-      { name: "transport", icon: "FaBus" },
-      { name: "shopping", icon: "FaShoppingCart" },
+      { name: "home", icon: "FaHome", amount: 3000, spent: 2500 },
+      { name: "card", icon: "FaCreditCard", amount: 7000, spent: 3000 },
+      { name: "transport", icon: "FaBus", amount: 12000, spent: 8000 },
+      { name: "shopping", icon: "FaShoppingCart", amount: 5000, spent: 4000 },
+    ],
+    userGoals: [
+      { title: "Emergency Fund", amount: 15000, rate: 0.4 },
+      { title: "Retirement Savings", amount: 100000, rate: 0.6 },
+      { title: "College Fund for Children", amount: 50000, rate: 0.25 },
+      { title: "Debt Repayment (Credit Card)", amount: 5000, rate: -0.1 },
+      { title: "Wedding Fund", amount: 20000, rate: 0.35 },
+      { title: "Home Renovation", amount: 12000, rate: 0.55 },
+      { title: "Holiday Shopping", amount: 2000, rate: 0.15 },
+      { title: "Investment Portfolio", amount: 30000, rate: 0.45 },
+      { title: "Fitness Equipment", amount: 1500, rate: 0.7 },
+      { title: "Travel Around the World", amount: 25000, rate: 0.1 },
     ],
   },
   reducers: {
@@ -154,6 +166,7 @@ export const selectTotalBalance = (state) => state.budget.totalBalance;
 export const selectInitialBalance = (state) => state.budget.initialBalance;
 export const selectBalanceHistory = (state) => state.budget.balanceHistory;
 export const selectFilter = (state) => state.budget.filter;
+export const selectUserGoals = (state) => state.budget.userGoals;
 export const selectAllTransactions = createSelector(
   selectIncomes,
   selectExpense,
