@@ -1,4 +1,5 @@
-import PropTypes from "prop-types";
+import { toggleModal } from "../../../store/slices/modalSlice";
+import { useDispatch } from "react-redux";
 import { MdAddCircle } from "react-icons/md";
 import { IoMdRemoveCircle } from "react-icons/io";
 import { TbTransferVertical } from "react-icons/tb";
@@ -35,9 +36,11 @@ function Operations() {
 }
 function OperationView({ operation }) {
   const { icon: Icon, title, color } = operation;
+  const dispatch = useDispatch();
 
   return (
     <motion.div
+      onClick={() => dispatch(toggleModal())}
       whileHover={{ y: -5, scale: 1.01 }}
       whileTap={{ y: -5, scale: 0.98 }}
       className="relative z-10 col-span-1 flex flex-col h-[10svh] p-4 bg-white-b2 dark:bg-black-b2 text-center rounded-md overflow-hidden cursor-pointer"
@@ -51,11 +54,4 @@ function OperationView({ operation }) {
     </motion.div>
   );
 }
-OperationView.propTypes = {
-  operation: PropTypes.shape({
-    icon: PropTypes.elementType.isRequired,
-    color: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
 export default Operations;

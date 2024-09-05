@@ -28,7 +28,7 @@ function ViewSection({ section, type }) {
       <div className="flex flex-col justify-between">
         <span className="text-mid-header sm:text-big-header flex items-center">
           {<BsCurrencyDollar />}
-          {type ? transactionsAmount : balanceAmount}
+          {(type ? transactionsAmount : balanceAmount).toLocaleString("en-US")}
         </span>
         <span className="place-self-end flex items-center gap-2 px-2 py-1 text-small-text bg-white-b1 dark:bg-black-b1 rounded-md">
           {rate > 0 ? (

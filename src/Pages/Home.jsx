@@ -2,6 +2,7 @@ import Control from "../Components/Control";
 import Overview from "../Components/Overview";
 import Operations from "../Components/HomeComponents/Operations";
 import Info from "../Components/HomeComponents/Info";
+import ProcessModal from "../Components/HomeComponents/ProcessModal";
 function Home() {
   const sections = ["Balance", "Incomes", "Expenses"];
   return (
@@ -10,6 +11,7 @@ function Home() {
       <Operations />
       <Overview sections={sections} />
       <Info />
+      <ProcessModal />
     </div>
   );
 }

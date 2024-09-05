@@ -29,3 +29,17 @@
   height: 100svh;
   overflow-y: scroll;
 }
+.home-modal {
+  z-index: 1000;
+}
+.home-modal div {
+  z-index: 1001;
+}
+.home-modal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: black;
+  opacity: 0.7;
+  z-index: 999;
+}

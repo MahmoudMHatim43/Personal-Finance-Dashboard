@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setFilter, selectFilter } from "../../store/slices/budgetsSlice";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../../store/slices/budgetsSlice";
 import { TfiCalendar } from "react-icons/tfi";
 
 const periods = ["All Time", "This Month", "Last Month", "This Year", "Last 12 Months"];
 function Control({ title }) {
   const [activePeriod, setActivePeriod] = useState("All Time");
   const dispatch = useDispatch();
-  const filter = useSelector(selectFilter);
-  console.log(filter);
   useEffect(() => {
     const date = new Date();
     let startDate = null;

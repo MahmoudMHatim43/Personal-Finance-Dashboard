@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { selectIsSideBarOpen } from "../store/slices/navSlice";
 import { motion } from "framer-motion";
 
-/* APP */
 function App() {
   const isOpen = useSelector(selectIsSideBarOpen);
   return (
