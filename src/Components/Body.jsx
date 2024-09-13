@@ -23,12 +23,9 @@ function Body() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/budget" element={<Budget />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/reports" element={<Reports />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/alerts" element={<Alerts />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </div>

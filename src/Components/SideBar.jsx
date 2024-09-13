@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { selectPages, toggleSideBar, iconMap } from "../../store/slices/navSlice";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // icons
 import { MdSettings } from "react-icons/md";
 function SideBar() {
@@ -18,14 +18,21 @@ function SideBar() {
         </h1>
         <hr className="w-full border-t-2 border-zinc-300 dark:border-zinc-700" />
       </div>
-
-      <div className="flex flex-col items-center gap-2">
+      <Link
+        to={"/settings"}
+        className="flex justify-center"
+        onClick={() => dispatch(toggleSideBar())}>
         <img src={userImage} alt="User profile" className="w-20 h-20 rounded-full object-cover" />
+      </Link>
+      <div className="flex flex-col items-center gap-2">
         <span className="text-md text-nowrap font-semibold">{userName}</span>
-        <button className="flex items-center gap-2 text-sm text-blue-500 dark:text-blue-300">
+        <Link
+          onClick={() => dispatch(toggleSideBar())}
+          to={"/settings"}
+          className="flex items-center gap-2 text-sm text-blue-500 dark:text-blue-300">
           <MdSettings size={18} />
           Settings
-        </button>
+        </Link>
         <hr className="w-full border-t-2 border-zinc-300 dark:border-zinc-700" />
       </div>
 
@@ -34,7 +41,7 @@ function SideBar() {
           {pages.map((page, idx) => {
             const IconComponent = iconMap[page.icon];
             return (
-              <NavLink
+              <Link
                 onClick={() => dispatch(toggleSideBar())}
                 to={`/${page.name.toLowerCase()}`}
                 key={idx}
@@ -43,7 +50,7 @@ function SideBar() {
                 } rounded-lg cursor-pointer transition duration-300`}>
                 <IconComponent size={22} />
                 <span>{page.name}</span>
-              </NavLink>
+              </Link>
             );
           })}
         </ul>
